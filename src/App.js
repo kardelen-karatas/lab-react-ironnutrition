@@ -1,12 +1,13 @@
 import React from 'react';
 import './App.css';
+import 'bulma/css/bulma.css';
 
-import Foodbox from './Foodbox'
+import FoodboxList from './FoodboxList';
 
 function App() {
   return (
     <div>
-      <Foodbox/>
+      <FoodboxList />
     </div>
   );
 }
