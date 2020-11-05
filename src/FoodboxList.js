@@ -3,17 +3,27 @@ import foods from './foods.json';
 
 import Foodbox from './Foodbox';
 import AddFood from './AddFood';
+import SearchBar from './SearchBar';
 
 class FoodboxList extends React.Component {
   state = {
     foods: foods,
     showForm: false,
+    filteredFoods: foods,
   };
 
   addFood = (food) => {
     let foods = this.state.foods;
     foods.push(food);
     this.setState({ foods });
+  };
+
+  filterFood = (caracter) => {
+    let foods = this.state.foods;
+    let filteredFoods = foods.filter((food) => {
+      return food.name.toLowerCase().includes(caracter.toLowerCase());
+    });
+    this.setState({ filteredFoods });
   };
 
   addFoodForm = () => {
@@ -31,9 +41,12 @@ class FoodboxList extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.toogleForm}>Add food</button>
+        <SearchBar filterFood={this.filterFood} />
+        <button class="button is-info is-outlined" onClick={this.toogleForm}>
+          Add food
+        </button>
         {this.state.showForm ? this.addFoodForm() : null}
-        {this.state.foods.map((food) => (
+        {this.state.filteredFoods.map((food) => (
           <Foodbox
             name={food.name}
             calories={food.calories}
