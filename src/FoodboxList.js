@@ -42,17 +42,25 @@ class FoodboxList extends React.Component {
     return (
       <div>
         <SearchBar filterFood={this.filterFood} />
-        <button class="button is-info is-outlined" onClick={this.toogleForm}>
+
+        <div className="columns">
+          <div className="rows">
+            {this.state.showForm ? this.addFoodForm() : null}
+            {this.state.filteredFoods.map((food) => (
+              <Foodbox
+                name={food.name}
+                calories={food.calories}
+                image={food.image}
+              />
+            ))}
+          </div>
+          <button class="button is-info is-outlined" onClick={this.toogleForm}>
           Add food
-        </button>
-        {this.state.showForm ? this.addFoodForm() : null}
-        {this.state.filteredFoods.map((food) => (
-          <Foodbox
-            name={food.name}
-            calories={food.calories}
-            image={food.image}
-          />
-        ))}
+          </button>
+          <div>
+            <h2>Today's food</h2>
+          </div>
+        </div>
       </div>
     );
   }
