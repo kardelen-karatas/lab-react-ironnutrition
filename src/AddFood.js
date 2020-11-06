@@ -36,6 +36,7 @@ class AddFood extends React.Component {
         <form onSubmit={this.handleFormSubmit}>
           <title></title>
           <input
+            className="input is-rounded"
             type="text"
             name="name"
             placeholder="food name"
@@ -45,6 +46,7 @@ class AddFood extends React.Component {
 
           <title></title>
           <input
+            className="input is-rounded"
             type="number"
             name="calories"
             placeholder="calories"
@@ -54,6 +56,7 @@ class AddFood extends React.Component {
 
           <title></title>
           <input
+            className="input is-rounded"
             type="text"
             name="image"
             placeholder="url of image"
@@ -61,7 +64,7 @@ class AddFood extends React.Component {
             onChange={this.handleChange}
           ></input>
 
-          <button>Done</button>
+          <button className="button is-link">Submit</button>
         </form>
       </diV>
     );

@@ -10,6 +10,7 @@ class FoodboxList extends React.Component {
     foods: foods,
     showForm: false,
     filteredFoods: foods,
+    selectedFoods: [],
   };
 
   addFood = (food) => {
@@ -38,29 +39,45 @@ class FoodboxList extends React.Component {
     }
   };
 
+  foodInfo = (food) => {
+    let selectedFoods = [...this.state.selectedFoods];
+    selectedFoods.push(food);
+    this.setState({ selectedFoods });
+  };
+
   render() {
+    let totalCal = this.state.selectedFoods.reduce((a, f) => {
+      return a + (f.calories*f.quantity)
+    }, 0 )
     return (
-      <div>
+      <div className="mb-1">
+      <h1 className="title">IronNutrition</h1>
         <SearchBar filterFood={this.filterFood} />
 
         <div className="columns">
           <div className="rows">
-            {this.state.showForm ? this.addFoodForm() : null}
             {this.state.filteredFoods.map((food) => (
-              <Foodbox
-                name={food.name}
-                calories={food.calories}
-                image={food.image}
-              />
+              <Foodbox {...food} handleFoodInfo={this.foodInfo} />
             ))}
           </div>
-          <button class="button is-info is-outlined" onClick={this.toogleForm}>
-          Add food
-          </button>
-          <div>
-            <h2>Today's food</h2>
+          <div className="content is-medium column">
+            <h2 className="subtitle">Today's food</h2>
+            <lu>
+              {this.state.selectedFoods.map((f, i) => (
+                <li key={i}>
+                  {f.quantity} {f.name} = {f.calories * f.quantity}
+                </li>
+              ))}
+            </lu>
+            <p></p>
+            <p>{`Total: ${totalCal} cal`}</p>
           </div>
         </div>
+
+        <button class="button is-info is-outlined" onClick={this.toogleForm}>
+          Add food
+        </button>
+        {this.state.showForm ? this.addFoodForm() : null}
       </div>
     );
   }
